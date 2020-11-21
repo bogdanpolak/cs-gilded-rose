@@ -2,6 +2,7 @@ using NUnit.Framework;
 using GildedRose;
 using System.Collections.Generic;
 using System.Linq;
+using GildedRose.Logic;
 
 namespace GlidedRoseTest
 {
