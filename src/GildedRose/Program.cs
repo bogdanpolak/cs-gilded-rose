@@ -32,75 +32,80 @@ namespace GildedRose
 
         public static void UpdateQuality(IList<Item> items)
         {
-            for (var i = 0; i < items.Count; i++)
+            foreach (var item in items)
             {
-                if (items[i].Name != AgedBrie && items[i].Name != BackstagePasses)
+                UpdateItemQuality(item);
+            }
+        }
+
+        private static void UpdateItemQuality(Item item)
+        {
+            if (item.Name != AgedBrie && item.Name != BackstagePasses)
+            {
+                if (item.Quality > 0)
                 {
-                    if (items[i].Quality > 0)
+                    if (item.Name != Sulfuras)
                     {
-                        if (items[i].Name != Sulfuras)
+                        item.Quality = item.Quality - 1;
+                    }
+                }
+            }
+            else
+            {
+                if (item.Quality < 50)
+                {
+                    item.Quality = item.Quality + 1;
+
+                    if (item.Name == BackstagePasses)
+                    {
+                        if (item.SellIn < 11)
                         {
-                            items[i].Quality = items[i].Quality - 1;
+                            if (item.Quality < 50)
+                            {
+                                item.Quality = item.Quality + 1;
+                            }
+                        }
+
+                        if (item.SellIn < 6)
+                        {
+                            if (item.Quality < 50)
+                            {
+                                item.Quality = item.Quality + 1;
+                            }
                         }
                     }
                 }
-                else
+            }
+
+            if (item.Name != Sulfuras)
+            {
+                item.SellIn = item.SellIn - 1;
+            }
+
+            if (item.SellIn < 0)
+            {
+                if (item.Name != AgedBrie)
                 {
-                    if (items[i].Quality < 50)
+                    if (item.Name != BackstagePasses)
                     {
-                        items[i].Quality = items[i].Quality + 1;
-
-                        if (items[i].Name == BackstagePasses)
+                        if (item.Quality > 0)
                         {
-                            if (items[i].SellIn < 11)
+                            if (item.Name != Sulfuras)
                             {
-                                if (items[i].Quality < 50)
-                                {
-                                    items[i].Quality = items[i].Quality + 1;
-                                }
+                                item.Quality = item.Quality - 1;
                             }
-
-                            if (items[i].SellIn < 6)
-                            {
-                                if (items[i].Quality < 50)
-                                {
-                                    items[i].Quality = items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (items[i].Name != Sulfuras)
-                {
-                    items[i].SellIn = items[i].SellIn - 1;
-                }
-
-                if (items[i].SellIn < 0)
-                {
-                    if (items[i].Name != AgedBrie)
-                    {
-                        if (items[i].Name != BackstagePasses)
-                        {
-                            if (items[i].Quality > 0)
-                            {
-                                if (items[i].Name != Sulfuras)
-                                {
-                                    items[i].Quality = items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            items[i].Quality = items[i].Quality - items[i].Quality;
                         }
                     }
                     else
                     {
-                        if (items[i].Quality < 50)
-                        {
-                            items[i].Quality = items[i].Quality + 1;
-                        }
+                        item.Quality = item.Quality - item.Quality;
+                    }
+                }
+                else
+                {
+                    if (item.Quality < 50)
+                    {
+                        item.Quality = item.Quality + 1;
                     }
                 }
             }
