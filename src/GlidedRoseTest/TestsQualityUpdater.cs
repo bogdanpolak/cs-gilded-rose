@@ -37,7 +37,7 @@ namespace GlidedRoseTest
             var items = new List<Item>() {
                 new Item(){ Name = Product.Sulfuras, SellIn = sellIn, Quality = quality }
             };
-            Program.UpdateQuality(items);
+            DailyUpdater.UpdateQuality(items);
             var actualItem = items[0];
             Assert.AreEqual(sellIn, actualItem.SellIn);
             Assert.AreEqual(quality, actualItem.Quality);
@@ -59,7 +59,7 @@ namespace GlidedRoseTest
             var items = new List<Item>() {
                 new Item(){ Name = name, SellIn = sellIn, Quality = quality }
             };
-            Program.UpdateQuality(items);
+            DailyUpdater.UpdateQuality(items);
             var actualItem = items[0];
             Assert.AreEqual(sellIn - 1, actualItem.SellIn);
             Assert.AreEqual(expectedQuality, actualItem.Quality);
@@ -80,7 +80,7 @@ namespace GlidedRoseTest
             var items = new List<Item>() {
                 new Item(){ Name = Product.AgedBrie, SellIn = sellIn, Quality = quality }
             };
-            Program.UpdateQuality(items);
+            DailyUpdater.UpdateQuality(items);
             var actualItem = items[0];
             Assert.AreEqual(sellIn - 1, actualItem.SellIn);
             Assert.AreEqual(expectedQuality, actualItem.Quality);
@@ -104,7 +104,7 @@ namespace GlidedRoseTest
             var items = new List<Item>() {
                 new Item(){ Name = Product.BackstagePasses, SellIn = sellIn, Quality = quality }
             };
-            Program.UpdateQuality(items);
+            DailyUpdater.UpdateQuality(items);
             var actualItem = items[0];
             Assert.AreEqual(sellIn - 1, actualItem.SellIn);
             Assert.AreEqual(expectedQuality, actualItem.Quality);
@@ -123,7 +123,7 @@ namespace GlidedRoseTest
             var items = new List<Item>() {
                 new Item(){ Name = Product.ConjuredMana, SellIn = sellIn, Quality = quality }
             };
-            Program.UpdateQuality(items);
+            DailyUpdater.UpdateQuality(items);
             var actualItem = items[0];
             Assert.AreEqual(sellIn-1, actualItem.SellIn);
             Assert.AreEqual(expectedQuality, actualItem.Quality);

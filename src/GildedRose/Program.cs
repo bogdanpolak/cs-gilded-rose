@@ -4,6 +4,7 @@ using GildedRose.Logic;
 
 namespace GildedRose
 {
+
     public class Program
     {
         public static void Main(string[] args)
@@ -18,89 +19,8 @@ namespace GildedRose
                 new Item {Name = Product.ConjuredCake, SellIn = 3, Quality = 6}
             };
             Displayitems("Input", items);
-            UpdateQuality(items);
+            DailyUpdater.UpdateQuality(items);
             Displayitems("Output", items);
-        }
-
-        public static void UpdateQuality(IList<Item> items)
-        {
-            foreach (var item in items)
-            {
-                UpdateItemQuality(item);
-            }
-        }
-
-        private static void UpdateItemQuality(Item item)
-        {
-            if (item.Name != Product.AgedBrie && item.Name != Product.BackstagePasses)
-            {
-                if (item.Quality > 0)
-                {
-                    if (item.Name != Product.Sulfuras)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                }
-            }
-            else
-            {
-                if (item.Quality < 50)
-                {
-                    item.Quality = item.Quality + 1;
-
-                    if (item.Name == Product.BackstagePasses)
-                    {
-                        if (item.SellIn < 11)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
-                        }
-
-                        if (item.SellIn < 6)
-                        {
-                            if (item.Quality < 50)
-                            {
-                                item.Quality = item.Quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (item.Name != Product.Sulfuras)
-            {
-                item.SellIn = item.SellIn - 1;
-            }
-
-            if (item.SellIn < 0)
-            {
-                if (item.Name != Product.AgedBrie)
-                {
-                    if (item.Name != Product.BackstagePasses)
-                    {
-                        if (item.Quality > 0)
-                        {
-                            if (item.Name != Product.Sulfuras)
-                            {
-                                item.Quality = item.Quality - 1;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        item.Quality = item.Quality - item.Quality;
-                    }
-                }
-                else
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality = item.Quality + 1;
-                    }
-                }
-            }
         }
 
         private static void Displayitems(string title,
