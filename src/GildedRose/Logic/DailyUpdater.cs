@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GildedRose.Logic
 {
@@ -30,18 +31,9 @@ namespace GildedRose.Logic
 
         private static void UpdateAgedCheeseProduct(Item item)
         {
-            if (item.Quality < Product.MaxQuality)
-            {
-                item.Quality = item.Quality + 1;
-            }
             item.SellIn = item.SellIn - 1;
-            if (item.SellIn < 0)
-            {
-                if (item.Quality < Product.MaxQuality)
-                {
-                    item.Quality = item.Quality + 1;
-                }
-            }
+            var qualityDelta = item.SellIn < 0 ? 2 : 1;
+            item.Quality = Math.Min(item.Quality + qualityDelta, Product.MaxQuality);
         }
 
         private static void UpdateBackstagePasses(Item item)
