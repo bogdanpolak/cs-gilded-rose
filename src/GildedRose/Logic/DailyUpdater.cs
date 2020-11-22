@@ -32,8 +32,8 @@ namespace GildedRose.Logic
         private static void UpdateAgedCheeseProduct(Item item)
         {
             item.SellIn -= 1;
-            var qualityDelta = item.SellIn < 0 ? 2 : 1;
-            item.Quality = Math.Min(item.Quality + qualityDelta, Product.MaxQuality);
+            var delta = (item.SellIn < 0) ? 2 : 1;
+            item.Quality = Math.Min(item.Quality + delta, Product.MaxQuality);
         }
 
         private static void UpdateBackstagePasses(Item item)
@@ -48,8 +48,8 @@ namespace GildedRose.Logic
         private static void UpdateStandard(Item item)
         {
             item.SellIn -= 1;
-            var q = item.Quality - (item.SellIn >= 0 ? 1 : 2);
-            item.Quality = Math.Max(q, 0);
+            var delta = (item.SellIn >= 0) ? 1 : 2;
+            item.Quality = Math.Max(item.Quality - delta, 0);
         }
     }
 }
