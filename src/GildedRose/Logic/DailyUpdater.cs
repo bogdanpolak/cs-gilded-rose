@@ -31,63 +31,25 @@ namespace GildedRose.Logic
 
         private static void UpdateAgedCheeseProduct(Item item)
         {
-            item.SellIn = item.SellIn - 1;
+            item.SellIn -= 1;
             var qualityDelta = item.SellIn < 0 ? 2 : 1;
             item.Quality = Math.Min(item.Quality + qualityDelta, Product.MaxQuality);
         }
 
         private static void UpdateBackstagePasses(Item item)
         {
-            if (item.Quality < Product.MaxQuality)
-            {
-                item.Quality = item.Quality + 1;
-
-                if (item.Name == Product.BackstagePasses)
-                {
-                    if (item.SellIn < 11)
-                    {
-                        if (item.Quality < Product.MaxQuality)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
-
-                    if (item.SellIn < 6)
-                    {
-                        if (item.Quality < Product.MaxQuality)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
-                }
-            }
-
-            item.SellIn = item.SellIn - 1;
-
-            if (item.SellIn < 0)
-            {
-                item.Quality = item.Quality - item.Quality;
-            }
+            item.SellIn -= 1;
+            var delta = item.SellIn >= 10 ? 1 :
+                (item.SellIn >= 5) ? 2 :
+                    (item.SellIn >= 0) ? 3 : -item.Quality;
+            item.Quality = Math.Min(item.Quality + delta, Product.MaxQuality);
         }
 
         private static void UpdateStandard(Item item)
         {
-            if (item.Quality > 0)
-            {
-                if (item.Name != Product.Sulfuras)
-                {
-                    item.Quality = item.Quality - 1;
-                }
-            }
-            item.SellIn = item.SellIn - 1;
-
-            if (item.SellIn < 0)
-            {
-                if (item.Quality > 0)
-                {
-                    item.Quality = item.Quality - 1;
-                }
-            }
+            item.SellIn -= 1;
+            var q = item.Quality - (item.SellIn >= 0 ? 1 : 2);
+            item.Quality = Math.Max(q, 0);
         }
     }
 }
